@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+<bean id="boy_xml" class="com.sharpcj.aopdemo.test1.Boy" />
+    <bean id="girl_xml" class="com.sharpcj.aopdemo.test1.Girl" />
+    <bean id="buyAspectJ_xml" class="com.sharpcj.aopdemo.test1.BuyAspectJ_XML" />
+
+    <aop:config  proxy-target-class="false">
+        <aop:pointcut id="point" expression="execution(* com.sharpcj.aopdemo.test1.IBuy.buy(..))"/>
+        <aop:aspect id="qiemian"  ref="buyAspectJ_xml">
+            <aop:before method="hehe"  pointcut-ref="point"/>
+            <aop:after method="haha" pointcut-ref="point"/>
+            <aop:after-returning pointcut-ref="point" method="xixi"/>
+            <aop:around method="xxx"  pointcut="execution(* com.sharpcj.aopdemo.test1.IBuy.buy(double))  and args(price) and bean(girl_xml) "/>
+        </aop:aspect>
+    </aop:config>
+
+    <bean id="student" class="com.sharpcj.aopdemo.test1.Student"/>
+    <bean id="stuendtAspectJ" class="com.sharpcj.aopdemo.test1.StudentAspectJ_XML"/>
+    <aop:config proxy-target-class="false">
+        <aop:aspect ref="stuendtAspectJ">
+            <aop:around method="AroundLeanrn" pointcut="execution(* com.sharpcj.aopdemo.test1.Student.learn(String)) and args(book)  "/>
+        </aop:aspect>
+    </aop:config>
+</beans>

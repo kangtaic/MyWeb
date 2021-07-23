@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+    <bean id="boy" class="com.sharpcj.aopdemo.test1.Boy" />
+    <bean id="girl" class="com.sharpcj.aopdemo.test1.Girl" />
+    <bean id="buyAspectJ_xml" class="com.sharpcj.aopdemo.test1.BuyAspectJ_XML" />
+
+    <aop:config proxy-target-class="true">
+        <aop:pointcut id="point" expression="execution(* com.sharpcj.aopdemo.test1.IBuy.buy(..))"/>
+        <aop:aspect id="qiemian"  ref="buyAspectJ_xml">
+            <aop:before method="haha"  pointcut-ref="point"/>
+            <aop:after method="hehe" pointcut-ref="point"/>
+            <aop:after-returning pointcut-ref="point" method="xixi"/>
+            <aop:around method="xxx" pointcut-ref="point"/>
+        </aop:aspect>
+    </aop:config>
+</beans>
