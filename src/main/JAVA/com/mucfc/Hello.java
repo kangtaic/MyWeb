@@ -31,7 +31,7 @@ public class Hello {
         Iterator  iter = cl.iterator();
         while (iter.hasNext())
         {
-
+            System.out.println(iter.next());
 
         }
     }
